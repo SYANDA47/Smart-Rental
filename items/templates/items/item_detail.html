@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:600px; margin:40px auto; background:#fff; padding:30px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:center;">
+
+  <h2 style="font-size:26px; color:#2c3e50; margin-bottom:20px;">{{ item.name }}</h2>
+
+  {% if item.image %}
+    <img src="{{ item.image.url }}" alt="{{ item.name }}" style="width:100%; max-height:400px; object-fit:cover; border-radius:8px; margin-bottom:20px;">
+  {% else %}
+    <div style="width:100%; height:300px; background:#eee; display:flex; align-items:center; justify-content:center; color:#888; border-radius:8px; margin-bottom:20px;">
+      No Image Available
+    </div>
+  {% endif %}
+
+  <p style="font-size:15px; color:#555; margin-bottom:20px;">{{ item.description }}</p>
+
+  <p style="font-size:18px; color:#27ae60; font-weight:bold; margin-bottom:20px;">
+    Ksh {{ item.price_per_day }} / day
+  </p>
+
+  <!-- Rent buttons -->
+  <a href="{% url 'quick_rent' item.id %}" 
+     style="display:inline-block; padding:12px 20px; background:#27ae60; color:#fff; border:none; border-radius:6px; font-size:16px; font-weight:bold; text-decoration:none; margin-right:10px;">
+    Rent Now
+  </a>
+
+  <a href="{% url 'rental_create' item.id %}" 
+     style="display:inline-block; padding:12px 20px; background:#2980b9; color:#fff; border:none; border-radius:6px; font-size:16px; font-weight:bold; text-decoration:none;">
+    Custom Rent
+  </a>
+
+  <!-- Clickable Star Rating Only -->
+  {% if user.is_authenticated %}
+    <div style="margin-top:30px; text-align:left;">
+      <h3 style="color:#2c3e50;">Rate This Item</h3>
+      <form method="post" action="{% url 'add_review' item.pk %}" style="margin-top:10px;">
+        {% csrf_token %}
+        <div class="star-rating" style="font-size:28px; color:#f39c12; cursor:pointer; margin-bottom:10px;">
+          <span data-value="1">☆</span>
+          <span data-value="2">☆</span>
+          <span data-value="3">☆</span>
+          <span data-value="4">☆</span>
+          <span data-value="5">☆</span>
+        </div>
+        <input type="hidden" name="rating" id="rating-input" required>
+        <button type="submit" style="padding:10px 20px; background:#27ae60; color:#fff; border:none; border-radius:6px; font-weight:bold;">
+          Submit Rating
+        </button>
+      </form>
+    </div>
+
+    <script>
+      // Interactive star rating
+      const stars = document.querySelectorAll('.star-rating span');
+      const ratingInput = document.getElementById('rating-input');
+
+      stars.forEach(star => {
+        star.addEventListener('click', () => {
+          const value = star.getAttribute('data-value');
+          ratingInput.value = value;
+
+          // Highlight selected stars
+          stars.forEach(s => {
+            if (s.getAttribute('data-value') <= value) {
+              s.textContent = '★';
+            } else {
+              s.textContent = '☆';
+            }
+          });
+        });
+      });
+    </script>
+  {% endif %}
+
+</div>
+{% endblock %}

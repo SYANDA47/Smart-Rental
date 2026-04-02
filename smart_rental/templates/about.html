@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-lg border-0">
+        <div class="card-body p-5">
+          <h1 class="card-title text-center mb-4 text-primary">About Smart Rental</h1>
+          <p class="lead text-center mb-4">
+            Smart Rental is a modern platform that connects renters and owners, making it easy to list, discover, and book items securely.
+          </p>
+          <hr>
+          <h3 class="mt-4">Our Mission</h3>
+          <p>
+            We aim to empower communities by enabling people to share resources, reduce costs, and promote sustainability. 
+            Whether you’re renting out your equipment or looking for affordable options, Smart Rental provides a seamless experience.
+          </p>
+
+          <h3 class="mt-4">Why Choose Us?</h3>
+          <ul class="list-group list-group-flush mb-4">
+            <li class="list-group-item">✔ Secure transactions and verified users</li>
+            <li class="list-group-item">✔ Flexible rental periods to suit your needs</li>
+            <li class="list-group-item">✔ Transparent pricing with no hidden fees</li>
+            <li class="list-group-item">✔ Easy-to-use dashboards for renters and owners</li>
+          </ul>
+
+          <h3 class="mt-4">Get Involved</h3>
+          <p>
+            Join our growing community today. List your items, book rentals, and enjoy a hassle-free experience with Smart Rental.
+          </p>
+
+          <div class="text-center mt-4">
+            <a href="{% url 'item_list' %}" class="btn btn-primary btn-lg">
+              Explore Items
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

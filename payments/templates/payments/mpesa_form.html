@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:500px; margin:40px auto; background:#ffffff; padding:30px; border-radius:10px; 
+            box-shadow:0 4px 12px rgba(0,0,0,0.1); font-family:Arial, sans-serif;">
+
+  <h2 style="font-size:24px; color:#27ae60; margin-bottom:20px; text-align:center;">
+    Pay with M-Pesa
+  </h2>
+
+  <form method="post" style="margin-top:20px;">
+    {% csrf_token %}
+    
+    <label for="phone_number" style="display:block; margin-bottom:10px; font-weight:bold; color:#2c3e50;">
+      Enter your M-Pesa phone number:
+    </label>
+    
+    <input type="text" name="phone_number" id="phone_number"
+           placeholder="2547XXXXXXXX"
+           style="width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; 
+                  margin-bottom:20px; font-size:16px;" required>
+
+    <button type="submit"
+            style="width:100%; padding:12px; background:#27ae60; color:#fff; border:none; 
+                   border-radius:6px; font-size:16px; cursor:pointer;">
+      Initiate STK Push
+    </button>
+  </form>
+
+  <p style="margin-top:20px; color:#555; font-size:14px; text-align:center;">
+    You will receive a prompt on your phone to authorize the payment.
+  </p>
+
+</div>
+{% endblock %}

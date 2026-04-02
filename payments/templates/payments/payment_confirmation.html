@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 style="text-align:center; color:#27ae60; margin-bottom:20px;">
+    <i class="fas fa-check-circle"></i> Payment Submitted!
+</h2>
+
+<div style="max-width:600px; margin:auto; background:white; padding:20px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); text-align:center;">
+    <p><strong>Item:</strong> {{ payment.item.name }}</p>
+    <p><strong>Amount:</strong> ${{ payment.amount }}</p>
+    <p><strong>Method:</strong> {{ payment.get_method_display }}</p>
+    <p><strong>Status:</strong> {{ payment.status|title }}</p>
+    <p><strong>Date:</strong> {{ payment.date|date:"M d, Y H:i" }}</p>
+</div>
+
+<div style="text-align:center; margin-top:20px;">
+    <a href="{% url 'payment_list' %}" 
+       style="background:#2c3e50; color:#fff; padding:10px 20px; border-radius:6px; text-decoration:none; font-weight:bold;">
+        <i class="fas fa-list"></i> View My Payments
+    </a>
+</div>
+{% endblock %}

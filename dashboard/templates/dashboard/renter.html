@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <!-- Profile Header -->
+  <div class="d-flex align-items-center mb-4">
+    {% if profile.profile_picture %}
+      <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" 
+           class="rounded-circle me-3" width="80" height="80">
+    {% endif %}
+    <div>
+      <h2 class="mb-1">Welcome, {{ profile.username }}</h2>
+      <p class="text-muted mb-0">
+        Role: {{ profile.role|title }} | Offering: {{ profile.get_item_type_display }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5>Total Spent</h5>
+          <p class="text-success fw-bold">KES {{ total_spent }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5>Active Rentals</h5>
+          <p class="text-primary fw-bold">{{ active_rentals }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5>Pending Payments</h5>
+          <p class="text-warning fw-bold">{{ pending_payments }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment History -->
+  <div class="mt-5">
+    <h4>Payment History</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Item</th><th>Amount</th><th>Method</th><th>Status</th><th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for payment in payments %}
+        <tr>
+          <td>{{ payment.item.name }}</td>
+          <td>KES {{ payment.amount }}</td>
+          <td>{{ payment.method|title }}</td>
+          <td>
+            {% if payment.status == "completed" %}
+              <span class="badge bg-success">Completed</span>
+            {% elif payment.status == "pending" %}
+              <span class="badge bg-warning">Pending</span>
+            {% else %}
+              <span class="badge bg-danger">Failed</span>
+            {% endif %}
+          </td>
+          <td>{{ payment.date|date:"M d, Y" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center">No payments yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Spending Trend Chart -->
+  <div class="mt-5">
+    <h4>Monthly Spending Trend</h4>
+    <canvas id="spendingChart"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('spendingChart').getContext('2d');
+  const spendingChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [
+        {% for data in monthly_data %}
+          "{{ data.month|date:'M Y' }}",
+        {% endfor %}
+      ],
+      datasets: [{
+        label: 'KES Spent',
+        data: [
+          {% for data in monthly_data %}
+            {{ data.total }},
+          {% endfor %}
+        ],
+        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { 
+        legend: { display: false }, 
+        title: { display: true, text: 'Your Monthly Spending' },
+        tooltip: {
+          enabled: true,
+          callbacks: {
+            label: function(context) {
+              let value = context.raw;
+              return 'KES ' + value.toLocaleString();
+            }
+          }
+        }
+      },
+      scales: { y: { beginAtZero: true } }
+    }
+  });
+</script>
+{% endblock %}

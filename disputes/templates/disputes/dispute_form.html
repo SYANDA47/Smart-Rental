@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:700px; margin:40px auto; background:#fff; padding:30px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.1);">
+
+  <h2 style="font-size:26px; color:#2c3e50; margin-bottom:20px; text-align:center;">
+    File a Dispute
+  </h2>
+
+  <form method="post" enctype="multipart/form-data" style="text-align:left;">
+    {% csrf_token %}
+
+    <!-- Rental Reference -->
+    <div style="margin-bottom:20px;">
+      <label for="rental" style="font-weight:bold; color:#2c3e50;">Rental:</label><br>
+      <select name="rental" id="rental" required style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;">
+        {% for rental in rentals %}
+          <option value="{{ rental.id }}">{{ rental.item.name }} ({{ rental.start_date }} → {{ rental.end_date }})</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Reason -->
+    <div style="margin-bottom:20px;">
+      <label for="reason" style="font-weight:bold; color:#2c3e50;">Reason:</label><br>
+      <select name="reason" id="reason" required style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;">
+        <option value="late_return">Late Return</option>
+        <option value="damage">Damage</option>
+        <option value="payment_issue">Payment Issue</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <!-- Description -->
+    <div style="margin-bottom:20px;">
+      <label for="description" style="font-weight:bold; color:#2c3e50;">Description:</label><br>
+      <textarea name="description" id="description" rows="5" required 
+                style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;"></textarea>
+    </div>
+
+    <!-- Evidence Upload -->
+    <div style="margin-bottom:20px;">
+      <label for="evidence" style="font-weight:bold; color:#2c3e50;">Upload Evidence (optional):</label><br>
+      <input type="file" name="evidence" id="evidence" 
+             style="padding:8px; border-radius:6px; border:1px solid #ccc;">
+    </div>
+
+    <!-- Submit Button -->
+    <div style="text-align:center;">
+      <button type="submit" 
+              style="padding:12px 20px; background:#c0392b; color:#fff; border:none; border-radius:6px; font-size:16px; font-weight:bold; cursor:pointer;">
+        Submit Dispute
+      </button>
+    </div>
+  </form>
+
+</div>
+{% endblock %}

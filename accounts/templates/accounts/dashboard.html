@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5">
+  <!-- Welcome -->
+  <h2 class="text-center mb-4">Welcome, {{ request.user.username }}!</h2>
+
+  <!-- Stats Cards -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <i class="bi bi-box-seam fs-2 text-success"></i>
+          <h5 class="card-title">Browse Items</h5>
+          <p class="card-text">Explore available rentals.</p>
+          <a href="/items/" class="btn btn-success">Go</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <i class="bi bi-handshake fs-2 text-primary"></i>
+          <h5 class="card-title">View Rentals</h5>
+          <p class="card-text">Check your active and past rentals.</p>
+          <a href="/rentals/" class="btn btn-primary">Go</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <i class="bi bi-gavel fs-2 text-danger"></i>
+          <h5 class="card-title">Manage Disputes</h5>
+          <p class="card-text">Raise or track disputes.</p>
+          <a href="/disputes/" class="btn btn-danger">Go</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Row -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-6">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <i class="bi bi-bell fs-2 text-warning"></i>
+          <h5 class="card-title">Notifications</h5>
+          <p class="card-text">Stay updated with alerts.</p>
+          <a href="/notifications/" class="btn btn-warning text-white">Go</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <i class="bi bi-credit-card fs-2 text-info"></i>
+          <h5 class="card-title">Payment History</h5>
+          <p class="card-text">Review your transactions.</p>
+          <a href="/payments/" class="btn btn-info text-white">Go</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="text-center mt-4">
+    <a href="/items/" class="btn btn-outline-success me-2"><i class="bi bi-box-seam"></i> Browse Items</a>
+    <a href="/rentals/" class="btn btn-outline-primary me-2"><i class="bi bi-handshake"></i> Rentals</a>
+    <a href="/payments/" class="btn btn-outline-info me-2"><i class="bi bi-credit-card"></i> Payments</a>
+    <a href="/disputes/" class="btn btn-outline-danger me-2"><i class="bi bi-gavel"></i> Disputes</a>
+    <a href="/notifications/" class="btn btn-outline-warning"><i class="bi bi-bell"></i> Notifications</a>
+  </div>
+</div>
+
+{% endblock %}

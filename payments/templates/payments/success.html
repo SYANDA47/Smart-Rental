@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:800px; margin:40px auto; background:#fff; padding:30px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+
+  <h2 style="font-size:26px; color:#27ae60; margin-bottom:20px; text-align:center;">
+    Payment Successful 🎉
+  </h2>
+
+  <!-- Rental Info -->
+  <p style="font-size:18px; color:#2c3e50; margin-bottom:10px; text-align:center;">
+    Item: <strong>{{ rental.item.name }}</strong>
+  </p>
+  <p style="font-size:16px; color:#555; margin-bottom:10px; text-align:center;">
+    Rental Period: {{ rental.start_date }} → {{ rental.end_date }}
+  </p>
+
+  <!-- Latest Payment Summary -->
+  <div style="margin:20px 0; text-align:center;">
+    <p style="font-size:18px; color:#27ae60; font-weight:bold; margin-bottom:10px;">
+      Latest Payment: Ksh {{ latest_payment.amount }}
+    </p>
+    <p style="font-size:16px; color:#555; margin-bottom:20px;">
+      Method: {{ latest_payment.method|title }} <br>
+      Status: {{ latest_payment.status|title }}
+    </p>
+  </div>
+
+  <!-- Payment History Table -->
+  <h3 style="font-size:20px; color:#2c3e50; margin-bottom:15px;">Payment History</h3>
+  <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+    <thead>
+      <tr style="background:#f4f4f4; text-align:left;">
+        <th style="padding:10px; border-bottom:1px solid #ddd;">Date</th>
+        <th style="padding:10px; border-bottom:1px solid #ddd;">Amount</th>
+        <th style="padding:10px; border-bottom:1px solid #ddd;">Method</th>
+        <th style="padding:10px; border-bottom:1px solid #ddd;">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in payments %}
+      <tr>
+        <td style="padding:10px; border-bottom:1px solid #eee;">{{ p.date|date:"M d, Y H:i" }}</td>
+        <td style="padding:10px; border-bottom:1px solid #eee;">Ksh {{ p.amount }}</td>
+        <td style="padding:10px; border-bottom:1px solid #eee;">{{ p.method|title }}</td>
+        <td style="padding:10px; border-bottom:1px solid #eee;">{{ p.status|title }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Navigation -->
+  <div style="text-align:center;">
+    <a href="{% url 'rental_list' %}" 
+       style="padding:12px 20px; background:#2980b9; color:#fff; border-radius:6px; text-decoration:none; margin-right:10px;">
+      Back to My Rentals
+    </a>
+    <a href="{% url 'payment_list' %}" 
+       style="padding:12px 20px; background:#27ae60; color:#fff; border-radius:6px; text-decoration:none;">
+      View All Payments
+    </a>
+  </div>
+
+</div>
+{% endblock %}

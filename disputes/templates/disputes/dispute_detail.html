@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:700px; margin:40px auto; background:#fff; padding:30px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.1);">
+
+  <h2 style="font-size:26px; color:#2c3e50; margin-bottom:20px;">Dispute Details</h2>
+
+  <p><strong>Item:</strong> {{ dispute.rental.item.name }}</p>
+  <p><strong>Reason:</strong> {{ dispute.reason }}</p>
+  <p><strong>Description:</strong> {{ dispute.description }}</p>
+
+  <!-- Evidence -->
+  {% if dispute.evidence %}
+    <div style="margin:20px 0;">
+      <strong>Evidence:</strong><br>
+      <img src="{{ dispute.evidence.url }}" alt="Evidence" style="max-width:100%; border-radius:8px;">
+    </div>
+  {% endif %}
+
+  <!-- Status -->
+  <p><strong>Status:</strong> {{ dispute.status|title }}</p>
+
+  <!-- Resolution Notes -->
+  {% if dispute.resolution_notes %}
+    <div style="margin-top:20px; background:#f4f6f9; padding:15px; border-radius:8px;">
+      <strong>Resolution Notes:</strong><br>
+      {{ dispute.resolution_notes }}
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

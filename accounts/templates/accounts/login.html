@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:450px; margin:50px auto; background:#fff; padding:30px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+  
+  <h2 style="text-align:center; margin-bottom:20px; color:#2c3e50;">Login</h2>
+
+  <!-- ✅ SHOW DJANGO MESSAGES -->
+  {% if messages %}
+    {% for message in messages %}
+      <div style="background:#e74c3c; color:#fff; padding:10px; border-radius:6px; margin-bottom:15px;">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <!-- ✅ SHOW FORM ERRORS -->
+  {% if form.errors %}
+    <div style="background:#e74c3c; color:#fff; padding:10px; border-radius:6px; margin-bottom:15px;">
+      {{ form.errors }}
+    </div>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+
+    <label style="font-weight:bold;">Username or Email:</label>
+    {{ form.username }}
+
+    <label style="font-weight:bold; margin-top:10px;">Password:</label>
+    <div style="position:relative;">
+      {{ form.password }}
+    </div>
+
+    <button type="submit" 
+            style="width:100%; margin-top:20px; padding:12px; background:#27ae60; color:#fff; border:none; border-radius:6px; font-size:16px; font-weight:bold; cursor:pointer;">
+      Login
+    </button>
+  </form>
+
+  <!-- Forgot password -->
+  <div style="margin-top:10px; text-align:right; font-size:14px;">
+    <a href="{% url 'password_reset' %}" style="color:#e74c3c; text-decoration:none;">Forgot Password?</a>
+  </div>
+
+  <div style="margin-top:15px; text-align:center; font-size:14px;">
+    <span>Don't have an account?</span>
+    <a href="{% url 'register' %}" style="color:#27ae60; font-weight:bold; text-decoration:none;">Register</a>
+  </div>
+
+</div>
+{% endblock %}

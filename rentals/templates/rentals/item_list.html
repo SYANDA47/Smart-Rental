@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Available Rental Items</h2>
+
+    <!-- Rent Out Item Button -->
+    <a href="{% url 'add_item' %}" class="btn btn-success mb-3">
+        Rent Out an Item
+    </a>
+
+    <div class="row">
+        {% for item in items %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <p class="card-text">{{ item.description }}</p>
+                    <p class="text-success fw-bold">Ksh {{ item.price_per_day }} / day</p>
+                    <p class="text-muted">Owner: {{ item.owner.username }}</p>
+                    
+                    {% if item.available_from and item.available_to %}
+                        <p>Available: {{ item.available_from }} → {{ item.available_to }}</p>
+                    {% endif %}
+                    
+                    <a href="{% url 'rental_create' item.id %}" class="btn btn-primary">
+                        Rent This Item
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No items available yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

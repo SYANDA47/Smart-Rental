@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:450px; margin:50px auto; background:#fff; padding:30px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+  <h2 style="text-align:center; margin-bottom:20px; color:#2c3e50;">Register</h2>
+
+  <form method="post" style="text-align:left;">
+    {% csrf_token %}
+
+    <label style="font-weight:bold;">Username:</label>
+    <input type="text" name="username" required style="width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc; border-radius:6px;">
+
+    <label style="font-weight:bold;">Email address:</label>
+    <input type="email" name="email" required style="width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc; border-radius:6px;">
+
+    <label style="font-weight:bold;">Phone number:</label>
+    <input type="text" name="phone" required style="width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc; border-radius:6px;">
+
+    <!-- Password with eye icon -->
+    <label style="font-weight:bold;">Password:</label>
+    <div style="position:relative; margin-bottom:15px;">
+      <input type="password" name="password1" id="id_password1"
+             required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px;">
+      <span onclick="togglePassword('id_password1')" 
+            style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer; color:#888;">
+        👁
+      </span>
+    </div>
+
+    <!-- Confirm password with eye icon -->
+    <label style="font-weight:bold;">Confirm Password:</label>
+    <div style="position:relative; margin-bottom:20px;">
+      <input type="password" name="password2" id="id_password2"
+             required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px;">
+      <span onclick="togglePassword('id_password2')" 
+            style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer; color:#888;">
+        👁
+      </span>
+    </div>
+
+    <button type="submit" 
+            style="width:100%; padding:12px; background:#27ae60; color:#fff; border:none; border-radius:6px; font-size:16px; font-weight:bold; cursor:pointer;">
+      Register
+    </button>
+  </form>
+
+  <div style="margin-top:15px; text-align:center; font-size:14px;">
+    <span>Already have an account?</span>
+    <a href="{% url 'login' %}" style="color:#27ae60; font-weight:bold; text-decoration:none;">Login</a>
+  </div>
+</div>
+
+<script>
+function togglePassword(fieldId) {
+  const field = document.getElementById(fieldId);
+  field.type = field.type === "password" ? "text" : "password";
+}
+</script>
+{% endblock %}

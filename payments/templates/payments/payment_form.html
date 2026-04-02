@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 style="text-align:center; margin-bottom:20px;">Make a Payment</h2>
+
+<div style="max-width:500px; margin:auto; background:white; padding:20px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <form method="post">
+        {% csrf_token %}
+        
+        <label for="amount" style="display:block; margin-bottom:10px; font-weight:bold;">Amount:</label>
+        <input type="number" name="amount" step="0.01" required style="width:100%; padding:8px; margin-bottom:15px; border:1px solid #ccc; border-radius:4px;">
+
+        <label for="method" style="display:block; margin-bottom:10px; font-weight:bold;">Payment Method:</label>
+        <select name="method" required style="width:100%; padding:8px; margin-bottom:15px; border:1px solid #ccc; border-radius:4px;">
+            <option value="paypal">PayPal</option>
+            <option value="card">Bank Card</option>
+            <option value="mpesa">M-Pesa</option>
+        </select>
+
+        <button type="submit" style="background:#27ae60; color:#fff; padding:10px 20px; border:none; border-radius:6px; font-weight:bold; cursor:pointer; transition:all 0.3s ease;">
+            <i class="fas fa-credit-card"></i> Pay Now
+        </button>
+    </form>
+</div>
+{% endblock %}

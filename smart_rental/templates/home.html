@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Hero Section -->
+<div style="background-image: url('{% static "images/background.jpg" %}');
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            min-height: 100vh; display:flex; align-items:center; justify-content:center; 
+            text-align:center; color:#fff; position:relative;">
+
+    <!-- Overlay -->
+    <div style="position:absolute; top:0; left:0; width:100%; height:100%; 
+                background: rgba(0,0,0,0.5);"></div>
+
+    <div style="position:relative; z-index:1; padding:40px; border-radius:10px;">
+        <h1 style="font-size:52px; margin-bottom:20px; font-weight:bold;">Welcome to Smart Rental</h1>
+        <p style="font-size:22px; margin-bottom:30px;">
+            Elegant gowns, stylish suits, cars, and more — rent with ease!
+        </p>
+        <a href="{% url 'item_list' %}" 
+           style="padding:15px 30px; background:#27ae60; color:#fff; 
+                  font-size:18px; font-weight:bold; border-radius:8px; text-decoration:none; 
+                  box-shadow:0 4px 10px rgba(0,0,0,0.3); transition: background 0.3s ease;">
+            Browse Items
+        </a>
+    </div>
+</div>
+
+<!-- Quick Links Section -->
+<div style="padding:60px 20px; text-align:center; background:#f9f9f9;">
+    <h2 style="font-size:32px; color:#2c3e50; margin-bottom:40px;">Quick Access</h2>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:30px;">
+        <a href="/items/" style="width:200px; background:#27ae60; color:#fff; padding:20px; border-radius:10px; 
+                                 text-decoration:none; font-size:18px; font-weight:bold; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+            <i class="fas fa-box"></i> Items
+        </a>
+        <a href="/rentals/" style="width:200px; background:#2980b9; color:#fff; padding:20px; border-radius:10px; 
+                                   text-decoration:none; font-size:18px; font-weight:bold; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+            <i class="fas fa-handshake"></i> Rentals
+        </a>
+        <a href="/payments/" style="width:200px; background:#8e44ad; color:#fff; padding:20px; border-radius:10px; 
+                                    text-decoration:none; font-size:18px; font-weight:bold; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+            <i class="fas fa-credit-card"></i> Payments
+        </a>
+        <a href="/disputes/" style="width:200px; background:#c0392b; color:#fff; padding:20px; border-radius:10px; 
+                                    text-decoration:none; font-size:18px; font-weight:bold; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+            <i class="fas fa-gavel"></i> Disputes
+        </a>
+        <a href="/notifications/" style="width:200px; background:#f39c12; color:#fff; padding:20px; border-radius:10px; 
+                                        text-decoration:none; font-size:18px; font-weight:bold; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+            <i class="fas fa-bell"></i> Notifications
+        </a>
+    </div>
+</div>
+
+<!-- About Us Teaser -->
+<div style="padding:60px 20px; text-align:center; background:#fff;">
+    <h2 style="font-size:32px; color:#2c3e50; margin-bottom:20px;">About Us</h2>
+    <p style="max-width:700px; margin:auto; font-size:16px; color:#555; line-height:1.6; margin-bottom:30px;">
+        At <strong>Smart Rental</strong>, we believe in making rentals simple, affordable, and sustainable. 
+        Whether you need a car, furniture, or fashion, we connect you with trusted owners and fair prices. 
+        Our mission is to empower communities by sharing resources and reducing costs.
+    </p>
+    <a href="/about/" 
+       style="padding:12px 25px; background:#27ae60; color:#fff; font-size:16px; font-weight:bold; 
+              border-radius:8px; text-decoration:none; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+        Learn More
+    </a>
+</div>
+
+{% endblock %}

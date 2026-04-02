@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:1100px; margin:40px auto;">
+
+  <h2 style="font-size:28px; color:#2c3e50; margin-bottom:20px; text-align:center;">
+    My Disputes
+  </h2>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
+    {% for dispute in disputes %}
+      <div style="background:#fff; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1); padding:20px; transition:all 0.3s ease;">
+        
+        <!-- Rental Item -->
+        <h3 style="color:#2c3e50; margin-bottom:10px;">{{ dispute.rental.item.name }}</h3>
+
+        <!-- Dispute Reason -->
+        <p style="font-size:14px; color:#555; margin-bottom:10px;">
+          Reason: {{ dispute.reason }}
+        </p>
+
+        <!-- Status Badge -->
+        <span style="
+          display:inline-block; 
+          padding:6px 12px; 
+          border-radius:20px; 
+          font-size:13px; 
+          font-weight:bold;
+          {% if dispute.status == 'open' %}
+            background:#f39c12; color:#fff;
+          {% elif dispute.status == 'under_review' %}
+            background:#2980b9; color:#fff;
+          {% elif dispute.status == 'resolved' %}
+            background:#27ae60; color:#fff;
+          {% elif dispute.status == 'rejected' %}
+            background:#c0392b; color:#fff;
+          {% endif %}
+        ">
+          {{ dispute.status|title }}
+        </span>
+
+        <!-- Action -->
+        <div style="margin-top:15px;">
+          <a href="{% url 'dispute_detail' dispute.id %}" 
+             style="padding:8px 14px; background:#2980b9; color:#fff; border-radius:6px; text-decoration:none;">
+            View Details
+          </a>
+        </div>
+
+      </div>
+    {% empty %}
+      <p style="text-align:center; color:#888;">No disputes filed yet.</p>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

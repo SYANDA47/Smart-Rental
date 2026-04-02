@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:650px; margin:40px auto; background:#fff; padding:30px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.1);">
+
+  <!-- Title -->
+  <h2 style="font-size:28px; color:#2c3e50; margin-bottom:25px; text-align:center;">
+    Checkout
+  </h2>
+
+  <!-- Item Info -->
+  <div style="margin-bottom:20px; text-align:center;">
+    <p style="font-size:20px; color:#2c3e50; margin-bottom:8px;">
+      Item: <strong>{{ rental.item.name }}</strong>
+    </p>
+    <p style="font-size:16px; color:#555; margin-bottom:8px;">
+      Rental Period: {{ rental.start_date }} → {{ rental.end_date }}
+    </p>
+    <p style="font-size:20px; color:#27ae60; font-weight:bold; margin-bottom:0;">
+      Total Price: Ksh {{ rental.total_price }}
+    </p>
+  </div>
+
+  <!-- Payment Form -->
+  <form method="post" style="margin-top:25px;">
+    {% csrf_token %}
+
+    <label style="display:block; margin-bottom:15px; font-weight:bold; color:#2c3e50;">
+      Select Payment Method:
+    </label>
+
+    <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:25px;">
+      {% for code,label in methods %}
+        <label style="display:flex; align-items:center; gap:10px; font-size:16px; color:#2c3e50; cursor:pointer;">
+          <input type="radio" name="method" value="{{ code }}" required>
+          {% if code == "paypal" %}
+            <i class="fab fa-paypal" style="color:#003087;"></i>
+          {% elif code == "card" %}
+            <i class="fas fa-credit-card" style="color:#2980b9;"></i>
+          {% elif code == "mpesa" %}
+            <i class="fas fa-mobile-alt" style="color:#27ae60;"></i>
+          {% endif %}
+          {{ label }}
+        </label>
+      {% endfor %}
+    </div>
+
+    <button type="submit" style="width:100%; padding:14px; background:#27ae60; color:#fff; border:none; border-radius:6px; font-size:18px; font-weight:bold; cursor:pointer;">
+      Continue
+    </button>
+
+    <p style="margin-top:12px; font-size:13px; color:#888; text-align:center;">
+      After selecting a method, you’ll be redirected to enter your payment details.
+    </p>
+  </form>
+
+</div>
+{% endblock %}
